@@ -81,6 +81,16 @@ impl Ticket {
     pub fn add_text(&mut self, text: &str){
         self.content.push_str(text);
     }
+
+    pub fn content(&self)-> &str{
+        ""
+    }
+
+    pub fn ask_verification(&mut self){
+        if let Some(s) = self.state.take(){
+            self.state = Some(s.ask_verification())
+        }
+    }
 }
 
 trait State{
