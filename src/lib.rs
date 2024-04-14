@@ -24,9 +24,15 @@ impl AverageCollection {
         self.average
     }
 
-    pub fn update_average(&mut self){
+    fn update_average(&mut self){
         let total = self.list.iter().sum();
         self.average = total / self.list.len() as f64;
     }
 
 }
+
+
+pub trait Displaying{
+    fn display(&self);
+}
+
