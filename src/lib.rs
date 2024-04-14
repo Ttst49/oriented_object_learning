@@ -94,10 +94,23 @@ impl Ticket {
 }
 
 trait State{
+    fn ask_verification(self:Box<Self>)->Box<dyn State>;
 }
 
 struct Draft{}
 
 impl State for Draft {
+    fn ask_verification(self: Box<Self>) -> Box<dyn State> {
+        Box::new(InVerification {})
+    }
+}
 
+struct InVerification{
+    
+}
+
+impl State for InVerification {
+    fn ask_verification(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
 }
