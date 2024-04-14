@@ -69,3 +69,25 @@ pub struct Ticket{
     state:Option<Box<dyn State>>,
     content:String
 }
+
+impl Ticket {
+    pub fn new()->Ticket{
+        Ticket{
+            state: Some(Box::new(Draft {})),
+            content: String::new()
+        }
+    }
+
+    pub fn add_text(&mut self, text: &str){
+        self.content.push_str(text);
+    }
+}
+
+trait State{
+}
+
+struct Draft{}
+
+impl State for Draft {
+
+}

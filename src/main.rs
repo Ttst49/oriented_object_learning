@@ -1,4 +1,4 @@
-use blog::Ticket;
+use oriented_object_learning::Ticket;
 
 fn ticket_process(){
     let mut ticket = Ticket::new();
