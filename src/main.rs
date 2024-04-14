@@ -14,5 +14,5 @@ fn ticket_process(){
 }
 
 fn main() {
-    println!("Hello world!");
+    ticket_process();
 }

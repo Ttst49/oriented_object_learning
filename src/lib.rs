@@ -1,3 +1,4 @@
+/**
 pub struct AverageCollection{
     list: Vec<i64>,
     average: f64
@@ -64,6 +65,7 @@ impl Displaying for Button {
     }
 }
 
+**/
 
 pub struct Ticket{
     state:Option<Box<dyn State>>,
@@ -83,7 +85,7 @@ impl Ticket {
     }
 
     pub fn content(&self)-> &str{
-        ""
+        self.state.as_ref().unwrap().content(self)
     }
 
     pub fn ask_verification(&mut self){
@@ -103,6 +105,10 @@ impl Ticket {
 trait State{
     fn ask_verification(self:Box<Self>)->Box<dyn State>;
     fn approve(self: Box<Self>)->Box<dyn State>;
+
+    fn content<'a>(&self,ticket: &'a Ticket)->&'a str{
+        ""
+    }
 }
 
 struct Draft{}
@@ -139,5 +145,9 @@ impl State for Publish {
 
     fn approve(self: Box<Self>) -> Box<dyn State> {
         self
+    }
+
+    fn content<'a>(&self, ticket: &'a Ticket) -> &'a str {
+        &ticket.content
     }
 }
