@@ -51,3 +51,15 @@ impl<T> Screen<T>
         }
     }
 }
+
+pub struct Button{
+    pub width:u64,
+    pub height:u64,
+    pub label:String
+}
+
+impl Displaying for Button {
+    fn display(&self) {
+        println!("hey it's a button")
+    }
+}
