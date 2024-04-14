@@ -63,3 +63,9 @@ impl Displaying for Button {
         println!("hey it's a button")
     }
 }
+
+
+pub struct Ticket{
+    state:Option<Box<dyn State>>,
+    content:String
+}
