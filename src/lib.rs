@@ -36,3 +36,14 @@ pub trait Displaying{
     fn display(&self);
 }
 
+pub struct Screen{
+    pub components: Vec<Box<dyn Displaying>>,
+}
+
+impl Screen {
+    pub fn execute(&self){
+        for component in self.components.iter() {
+            component.display();
+        }
+    }
+}
