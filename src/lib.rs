@@ -91,10 +91,18 @@ impl Ticket {
             self.state = Some(s.ask_verification())
         }
     }
+
+    pub fn approve(&mut self){
+        if let Some(s) = self.state.take() {
+            self.state = Some(s.approve())
+        }
+    }
+
 }
 
 trait State{
     fn ask_verification(self:Box<Self>)->Box<dyn State>;
+    fn approve(self: Box<Self>)->Box<dyn State>;
 }
 
 struct Draft{}
@@ -102,6 +110,9 @@ struct Draft{}
 impl State for Draft {
     fn ask_verification(self: Box<Self>) -> Box<dyn State> {
         Box::new(InVerification {})
+    }
+    fn approve(self: Box<Self>) -> Box<dyn State> {
+        self
     }
 }
 
@@ -111,6 +122,22 @@ struct InVerification{
 
 impl State for InVerification {
     fn ask_verification(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
+
+    fn approve(self: Box<Self>) -> Box<dyn State> {
+        Box::new(Publish {})
+    }
+}
+
+struct Publish{}
+
+impl State for Publish {
+    fn ask_verification(self: Box<Self>) -> Box<dyn State> {
+        self
+    }
+
+    fn approve(self: Box<Self>) -> Box<dyn State> {
         self
     }
 }
